@@ -7,6 +7,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=20)
+    is_active = models.BooleanField(default=True)
 
 
 class Product(models.Model):
@@ -19,4 +20,4 @@ class Product(models.Model):
 
 class Review(models.Model):
     text = models.TextField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
