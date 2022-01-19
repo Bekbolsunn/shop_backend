@@ -1,10 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ProductSerializer, ProductDetailSerializer, ProductReviewSerializer, ReviewSerializer, \
-    TagSerializer
+from .serializers import ProductSerializer, ProductDetailSerializer, ProductReviewSerializer, ReviewSerializer, TagSerializer, ProductUpdateValidateSerializer
 from .models import Product, Review, Tag
-
 
 @api_view(['GET'])
 def product_list_view(request):
@@ -35,6 +33,11 @@ def product_detail_view(request, id):
         data = ProductDetailSerializer(product, many=False).data
         return Response(data=data)
     elif request.method == 'PUT':
+        serializer = ProductUpdateValidateSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
+            data={'message': 'error',
+            'errors': serializer.errors})
         product.title = request.data['title']
         product.description = request.data.get('description', '')
         product.price = request.data['price']
@@ -71,4 +74,8 @@ def product_with_tag_list_view(request):
 Домашнее задание 3.
 написать новый API /api/v1/products/<int:id>/ (PUT, DELETE) 
 Для данного пути напишите функционал удаления и изменения товара
+
+Домашнее задание 4.
+Написать Валидацию для изменения товара
+ /api/v1/products/<int:id>/
 """

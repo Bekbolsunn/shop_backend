@@ -11,6 +11,7 @@ class Tag(models.Model):
 
 
 class Product(models.Model):
+    DoesNotExist = None
     title = models.CharField(max_length=20)
     descriptions = models.TextField()
     price = models.FloatField()
@@ -21,3 +22,4 @@ class Product(models.Model):
 class Review(models.Model):
     text = models.TextField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+
