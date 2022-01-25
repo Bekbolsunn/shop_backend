@@ -6,6 +6,7 @@ from .models import Product, Review, Tag
 
 @api_view(['GET'])
 def product_list_view(request):
+    print(request.user)
     products = Product.objects.all()
     data = ProductSerializer(products, many=True).data
     return Response(data=data)
@@ -78,4 +79,10 @@ def product_with_tag_list_view(request):
 Домашнее задание 4.
 Написать Валидацию для изменения товара
  /api/v1/products/<int:id>/
+ 
+Домашнее задание 5.
+Написать регистрацию
+Написать авторизацию
+Extra Task: При регистрации отправить письмо для подтверждения на почту. 
+При переходе из письма активировать пользователя.
 """
