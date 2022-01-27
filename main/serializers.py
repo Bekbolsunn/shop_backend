@@ -15,21 +15,15 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
 
 
-class ProductReviewSerializer(serializers.ModelSerializer):
+class ProductDetailSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
 
-    class Meta:
-        model = Product
-        fields = ['reviews', 'title']
-
-
-class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
